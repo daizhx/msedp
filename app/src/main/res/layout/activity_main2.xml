@@ -3,15 +3,21 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
+    <android.support.v7.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/toolbar"
+        android:background="?attr/colorPrimary"
+        android:fitsSystemWindows="true"></android.support.v7.widget.Toolbar>
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:background="@android:color/darker_gray"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="40dp"
-        android:id="@+id/show_time">
+        android:layout_marginTop="20dp"
+        android:id="@+id/show_time"
+        android:layout_below="@+id/toolbar">
 
         <TextView
             android:layout_width="wrap_content"

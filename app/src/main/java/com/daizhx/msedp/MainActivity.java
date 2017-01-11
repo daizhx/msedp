@@ -25,6 +25,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -213,6 +214,9 @@ public class MainActivity extends AppCompatActivity implements EditTimeDialog.Se
         super.onCreate(savedInstanceState);
         initArg();
         setContentView(R.layout.activity_main2);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
         initView();
 
         View.OnClickListener onClickListener = new View.OnClickListener() {

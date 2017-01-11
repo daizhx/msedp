@@ -19,8 +19,7 @@
         <activity android:name=".MainActivity">
 
         </activity>
-        <activity android:name=".SlashActivity"
-            android:theme="@style/Theme.AppCompat.NoActionBar">
+        <activity android:name=".SlashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
