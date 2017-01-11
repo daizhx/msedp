@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@android:color/darker_gray"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp"
+        android:id="@+id/show_time">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0"
+            android:textColor="@android:color/white"
+            android:textSize="40sp"
+            android:layout_margin="10dp"
+            android:id="@+id/number1"/>
+
+        <View
+            android:layout_width="1px"
+            android:layout_height="match_parent"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="4dp"
+            android:background="@android:color/white"/>
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0"
+            android:textColor="@android:color/white"
+            android:textSize="40sp"
+            android:layout_margin="10dp"
+            android:id="@+id/number2"/>
+        <View
+            android:layout_width="1px"
+            android:layout_height="match_parent"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="4dp"
+            android:background="@android:color/white"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="分钟"
+            android:textColor="@android:color/white"
+            android:layout_gravity="center"
+            android:textSize="30sp"
+            android:layout_margin="10dp"/>
+    </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="@dimen/btn_size"
+        android:layout_height="@dimen/btn_size"
+        android:background="@drawable/blue_circle_bg"
+        android:layout_below="@id/show_time"
+        android:id="@+id/btn_freq"
+        android:layout_marginTop="60dp"
+        android:elevation="@dimen/btn_elevation"
+        android:layout_marginLeft="40dp">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/aa"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="12次/分钟"
+            android:textColor="@android:color/white"
+            android:layout_gravity="center_horizontal|bottom"
+            android:layout_marginBottom="16dp"
+            android:id="@+id/tv_qibo"
+            />
+        </FrameLayout>
+
+    <TextView
+        android:layout_width="@dimen/btn_size"
+        android:layout_height="wrap_content"
+        android:text="起搏次数"
+        android:gravity="center"
+        android:layout_marginTop="10dp"
+        android:layout_alignLeft="@id/btn_freq"
+        android:layout_below="@+id/btn_freq" />
+
+    <FrameLayout
+        android:layout_width="@dimen/btn_size"
+        android:layout_height="@dimen/btn_size"
+        android:background="@drawable/red_circle_bg"
+        android:id="@+id/btn_strength"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="40dp"
+        android:layout_alignTop="@id/btn_mc"
+        android:elevation="@dimen/btn_elevation">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/bb"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0单位"
+            android:textColor="@android:color/white"
+            android:layout_gravity="center_horizontal|bottom"
+            android:layout_marginBottom="16dp"
+            android:id="@+id/tv_strength"/>
+    </FrameLayout>
+
+    <TextView
+        android:layout_width="@dimen/btn_size"
+        android:layout_height="wrap_content"
+        android:text="输出强度"
+        android:gravity="center"
+        android:layout_marginTop="10dp"
+        android:layout_alignLeft="@id/btn_strength"
+        android:layout_below="@+id/btn_strength" />
+
+    <FrameLayout
+        android:layout_width="@dimen/btn_size"
+        android:layout_height="@dimen/btn_size"
+        android:background="@drawable/green_circle_bg"
+        android:id="@+id/btn_mc"
+        android:layout_below="@id/btn_freq"
+        android:layout_marginTop="40dp"
+        android:layout_alignLeft="@id/btn_freq"
+        android:elevation="@dimen/btn_elevation">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/cc"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="40赫兹"
+            android:textColor="@android:color/white"
+            android:layout_gravity="center_horizontal|bottom"
+            android:layout_marginBottom="10dp"
+            android:id="@+id/tv_mc"/>
+    </FrameLayout>
+
+    <TextView
+        android:layout_width="@dimen/btn_size"
+        android:layout_height="wrap_content"
+        android:text="脉冲频率"
+        android:gravity="center"
+        android:layout_marginTop="10dp"
+        android:layout_alignLeft="@id/btn_mc"
+        android:layout_below="@+id/btn_mc"
+        android:id="@+id/textView" />
+
+    <FrameLayout
+        android:layout_width="@dimen/btn_size"
+        android:layout_height="@dimen/btn_size"
+        android:background="@drawable/orange_circle_bg"
+        android:id="@+id/btn_time"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@id/btn_freq"
+        android:layout_marginRight="40dp"
+        android:elevation="@dimen/btn_elevation">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/dd"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="30分钟"
+            android:textColor="@android:color/white"
+            android:layout_gravity="center_horizontal|bottom"
+            android:layout_marginBottom="10dp"
+            android:id="@+id/tv_time"
+            />
+    </FrameLayout>
+
+    <TextView
+        android:layout_width="@dimen/btn_size"
+        android:layout_height="wrap_content"
+        android:text="设定时间"
+        android:gravity="center"
+        android:layout_marginTop="10dp"
+        android:layout_alignLeft="@id/btn_time"
+        android:layout_below="@+id/btn_time" />
+
+    <Chronometer
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/chronometer"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="62dp"
+        android:visibility="invisible"/>
+
+    <android.support.v7.widget.AppCompatButton
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/btn_radius_rect_bg"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:layout_marginBottom="20dp"
+        android:layout_alignParentBottom="true"
+        android:text="@string/confirm"
+        android:textColor="@android:color/white"
+        android:textSize="24sp"
+        android:id="@+id/btn_confirm"/>
+
+
+</RelativeLayout>
