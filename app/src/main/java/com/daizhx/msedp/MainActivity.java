@@ -10,16 +10,15 @@ import android.bluetooth.BluetoothGattCharacteristic;
 import android.bluetooth.BluetoothGattService;
 import android.bluetooth.BluetoothManager;
 import android.bluetooth.BluetoothProfile;
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.graphics.drawable.AnimationDrawable;
 import android.os.Build;
+import android.os.CountDownTimer;
 import android.os.Handler;
-import android.os.SystemClock;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
@@ -32,8 +31,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Chronometer;
-import android.widget.CompoundButton;
 import android.widget.FrameLayout;
 import android.widget.NumberPicker;
 import android.widget.TextView;
@@ -47,10 +44,7 @@ import java.util.Arrays;
 public class MainActivity extends AppCompatActivity implements EditTimeDialog.SetListener,QiboEditDialog.SetQiboFreqListener
         ,McEditDialog.SetMcFreqListener,StrengthEditDialog.SetStrengthListener,DeviceListDialog.OnItemClickListener{
 
-    NumberPicker numberPicker;
     String[] times = new String[]{"5分钟","10分钟","15分钟","20分钟","25分钟","30分钟"};
-    private static final String timerValue = "定时记时：";
-    String[] chronometerDisplays = new String[]{"05:00","10:00","15:00","20:00","25:00","30:00"};
 
     ToggleButton btnOn;
     FrameLayout btnTimer;
@@ -62,6 +56,9 @@ public class MainActivity extends AppCompatActivity implements EditTimeDialog.Se
     TextView tvQibo;
     TextView tvMc;
     TextView tvStrength;
+
+    private View timerAnim;
+    private AnimationDrawable timeAnim;
 
     Button btnConfirm;
 
@@ -97,7 +94,7 @@ public class MainActivity extends AppCompatActivity implements EditTimeDialog.Se
 
     private Handler mHandler;
 
-    private  int mConnectState = STATE_DISCONNECTED;
+    private int mConnectState = STATE_DISCONNECTED;
 
     public static final int STATE_DISCONNECTED = 0;
     public static final int STATE_CONNECTING = 1;
@@ -268,6 +265,7 @@ public class MainActivity extends AppCompatActivity implements EditTimeDialog.Se
                 (BluetoothManager) getSystemService(Context.BLUETOOTH_SERVICE);
         mBluetoothAdapter = bluetoothManager.getAdapter();
 
+
         mHandler = new Handler();
         Log.d(TAG,"command initial = "+Arrays.toString(command));
     }
@@ -287,6 +285,8 @@ public class MainActivity extends AppCompatActivity implements EditTimeDialog.Se
                 }
             });
         }
+        timerAnim = findViewById(R.id.img_timer);
+        timeAnim = (AnimationDrawable) timerAnim.getBackground();
     }
 
     void setArgText(){
@@ -295,32 +295,19 @@ public class MainActivity extends AppCompatActivity implements EditTimeDialog.Se
         tvQibo.setText(QiboEditDialog.ss[command[QB] - 5]);
         tvMc.setText(McEditDialog.ss[command[MC] - 1]);
         tvStrength.setText(StrengthEditDialog.ss[command[ST]]);
-        int time = (command[TIME])*5;
-        number1 = time/10;
-        number2 = time%10;
-        tvNumber1.setText(""+number1);
-        tvNumber2.setText(""+number2);
-        Log.d(TAG,"start timer.............");
-        handler.postDelayed(runnable,1000*60);
     }
-    int number1;
-    int number2;
-    Handler handler = new Handler();
-    Runnable runnable = new Runnable() {
+
+
+    CountDownTimer timer = new CountDownTimer(30*60*1000,1000*60) {
         @Override
-        public void run() {
-            Log.d(TAG,"one minute has gone");
-            if(number2 >0 ){
-                number2--;
-            }else if(number1 >0){
-                number1--;
-                number2 = 9;
-            }else {
-                return;
-            }
-            tvNumber1.setText(""+number1);
-            tvNumber2.setText(""+number2);
-            handler.postDelayed(this,1000*60);
+        public void onTick(long l) {
+            long r = l/(1000*60);
+            tvNumber2.setText(r+"");
+        }
+
+        @Override
+        public void onFinish() {
+            //TODO
         }
     };
     void initArg(){
