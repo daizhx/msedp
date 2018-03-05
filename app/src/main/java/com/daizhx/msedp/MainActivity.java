@@ -31,6 +31,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.FrameLayout;
 import android.widget.NumberPicker;
 import android.widget.TextView;
@@ -287,6 +288,14 @@ public class MainActivity extends AppCompatActivity implements EditTimeDialog.Se
         }
         timerAnim = findViewById(R.id.img_timer);
         timeAnim = (AnimationDrawable) timerAnim.getBackground();
+
+        ToggleButton onOffBtn = (ToggleButton) findViewById(R.id.btn_on_off);
+        onOffBtn.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+
+            }
+        });
     }
 
     void setArgText(){
