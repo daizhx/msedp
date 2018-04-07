@@ -293,7 +293,15 @@ public class MainActivity extends AppCompatActivity implements EditTimeDialog.Se
         onOffBtn.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-
+                if(b){
+                    //turn on
+                    command[0] = 0x01;
+                    writeBytes(command);
+                }else{
+                    //turn off
+                    command[0] = 0x02;
+                    writeBytes(command);
+                }
             }
         });
     }
