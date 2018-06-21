@@ -10,6 +10,14 @@
         android:background="?attr/colorPrimary"
         android:fitsSystemWindows="true"></android.support.v7.widget.Toolbar>
 
+    <ToggleButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="开机"
+        android:layout_below="@+id/toolbar"
+        android:layout_marginTop="10dp"
+        android:id="@+id/btn_on_off" />
+
     <View
         android:layout_width="60dp"
         android:layout_height="60dp"

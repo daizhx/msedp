@@ -10,6 +10,10 @@ import android.bluetooth.BluetoothGattCharacteristic;
 import android.bluetooth.BluetoothGattService;
 import android.bluetooth.BluetoothManager;
 import android.bluetooth.BluetoothProfile;
+import android.bluetooth.le.BluetoothLeScanner;
+import android.bluetooth.le.ScanCallback;
+import android.bluetooth.le.ScanResult;
+import android.bluetooth.le.ScanSettings;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -32,6 +36,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.FrameLayout;
 import android.widget.NumberPicker;
 import android.widget.TextView;
@@ -87,6 +92,7 @@ public class MainActivity extends AppCompatActivity implements EditTimeDialog.Se
 
                 @Override
                 public void onLeScan(final BluetoothDevice device, int rssi, byte[] scanRecord) {
+                    Log.d("daizhx","onLeScan-------->"+rssi+",device="+device.getName());
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
@@ -97,6 +103,13 @@ public class MainActivity extends AppCompatActivity implements EditTimeDialog.Se
                 }
 
             };
+
+//    ScanCallback scanCallback = new ScanCallback() {
+//        @Override
+//        public void onScanResult(int callbackType, ScanResult result) {
+//            Log.d("daizhx","------------->"+result.toString());
+//        }
+//    };
 
     private Handler mHandler;
 
@@ -293,6 +306,22 @@ public class MainActivity extends AppCompatActivity implements EditTimeDialog.Se
         }
         timerAnim = findViewById(R.id.img_timer);
         timeAnim = (AnimationDrawable) timerAnim.getBackground();
+
+        ToggleButton onOffBtn = (ToggleButton) findViewById(R.id.btn_on_off);
+        onOffBtn.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if(b){
+                    //turn on
+                    command[0] = 0x01;
+                    writeBytes(command);
+                }else{
+                    //turn off
+                    command[0] = 0x02;
+                    writeBytes(command);
+                }
+            }
+        });
     }
 
     void setArgText(){
@@ -427,7 +456,11 @@ public class MainActivity extends AppCompatActivity implements EditTimeDialog.Se
                 @Override
                 public void run() {
                     mScanning = false;
-                    mBluetoothAdapter.stopLeScan(mLeScanCallback);
+//                    if(Build.VERSION.SDK_INT > Build.VERSION_CODES.M) {
+//                        mBluetoothAdapter.getBluetoothLeScanner().startScan(scanCallback);
+//                    }else {
+                        mBluetoothAdapter.stopLeScan(mLeScanCallback);
+//                    }
                     DeviceListDialog deviceListDialog = (DeviceListDialog) getFragmentManager().findFragmentByTag("deviceDialog");
                     if(deviceListDialog != null) {
                         deviceListDialog.stopScan();
@@ -437,7 +470,17 @@ public class MainActivity extends AppCompatActivity implements EditTimeDialog.Se
             }, SCAN_PERIOD);
             //TODO should change single mode
             mScanning = true;
-            mBluetoothAdapter.startLeScan(mLeScanCallback);
+
+            Log.d("daizhx","------------->start scan");
+//            if(Build.VERSION.SDK_INT > Build.VERSION_CODES.M) {
+//                BluetoothLeScanner scanner = mBluetoothAdapter.getBluetoothLeScanner();
+//                ScanSettings.Builder builder = new ScanSettings.Builder();
+//                ScanSettings scanSettings = builder.setScanMode(ScanSettings.SCAN_MODE_BALANCED).build();
+//                scanner.startScan(null, scanSettings,scanCallback);
+//
+//            }else {
+                mBluetoothAdapter.startLeScan(mLeScanCallback);
+//            }
 
         } else {
             mScanning = false;
@@ -458,10 +501,12 @@ public class MainActivity extends AppCompatActivity implements EditTimeDialog.Se
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
             return false;
         }
-        if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED && checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+        if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
+                && checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED
+                && checkSelfPermission(Manifest.permission.BLUETOOTH_ADMIN) == PackageManager.PERMISSION_GRANTED) {
             return false;
         }
-        ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.ACCESS_COARSE_LOCATION,Manifest.permission.ACCESS_FINE_LOCATION},0);
+        ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.ACCESS_COARSE_LOCATION,Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.BLUETOOTH_ADMIN},0);
         return true;
     }
 
@@ -610,9 +655,10 @@ public class MainActivity extends AppCompatActivity implements EditTimeDialog.Se
         return true;
     }
 
-    public void disconnect(){
+    private void disconnect(){
         if(mBluetoothGatt != null){
             mBluetoothGatt.disconnect();
+            mBluetoothGatt.close();
         }
     }
 
