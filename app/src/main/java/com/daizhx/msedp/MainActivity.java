@@ -20,6 +20,7 @@ import android.os.Build;
 import android.os.CountDownTimer;
 import android.os.Handler;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -69,7 +70,12 @@ public class MainActivity extends AppCompatActivity implements EditTimeDialog.Se
     private boolean mScanning;
     private static final long SCAN_PERIOD = 10000;
 
-//    Chronometer timer;
+    @Override
+    protected void onPostCreate(@Nullable Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+    }
+
+    //    Chronometer timer;
     boolean timerTriggle = false;
 
     TextView tvNumber1;
@@ -426,7 +432,7 @@ public class MainActivity extends AppCompatActivity implements EditTimeDialog.Se
                     if(deviceListDialog != null) {
                         deviceListDialog.stopScan();
                     }
-                    invalidateOptionsMenu();
+                    supportInvalidateOptionsMenu();
                 }
             }, SCAN_PERIOD);
             //TODO should change single mode
@@ -439,7 +445,7 @@ public class MainActivity extends AppCompatActivity implements EditTimeDialog.Se
             DeviceListDialog deviceListDialog = (DeviceListDialog) getFragmentManager().findFragmentByTag("deviceDialog");
             deviceListDialog.stopScan();
         }
-        invalidateOptionsMenu();
+        supportInvalidateOptionsMenu();
     }
 
     void showDeviceList(){
@@ -568,13 +574,13 @@ public class MainActivity extends AppCompatActivity implements EditTimeDialog.Se
 
     private void connected(){
         mConnectState = STATE_CONNECTED;
-        invalidateOptionsMenu();
+        supportInvalidateOptionsMenu();
         DeviceListDialog deviceListDialog = DeviceListDialog.getInstance();
         deviceListDialog.dismiss();
     }
     private void disConnected(){
         mConnectState = STATE_DISCONNECTED;
-        invalidateOptionsMenu();
+        supportInvalidateOptionsMenu();
     }
 
     public boolean connect(final String addr){
