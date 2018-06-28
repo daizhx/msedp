@@ -5,6 +5,8 @@ import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import com.daizhx.msedp.login.LoginActivity;
+
 public class SlashActivity extends AppCompatActivity {
 
     @Override
@@ -14,7 +16,7 @@ public class SlashActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                startActivity(new Intent(SlashActivity.this,MainActivity.class));
+                startActivity(new Intent(SlashActivity.this,LoginActivity.class));
                 finish();
             }
         },3000);
