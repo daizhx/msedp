@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".login.SignUpActivity"
+    android:padding="@dimen/activity_horizontal_margin">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+    <com.daizhx.msedp.view.LabelEditText
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        labelText="账号:"
+        labelFontSize="20"
+        labelPosition="left"
+        android:id="@+id/et_account"></com.daizhx.msedp.view.LabelEditText>
+
+    <com.daizhx.msedp.view.LabelEditText
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        labelText="密码:"
+        labelFontSize="20"
+        labelPosition="left"
+        android:layout_marginTop="16dp"
+        android:id="@+id/et_pwd"></com.daizhx.msedp.view.LabelEditText>
+
+    <com.daizhx.msedp.view.LabelEditText
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        labelText="姓名:"
+        labelFontSize="20"
+        labelPosition="left"
+        android:layout_marginTop="16dp"
+        android:id="@+id/et_name"></com.daizhx.msedp.view.LabelEditText>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="16dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="性别:"
+                android:textSize="20sp"/>
+            <View
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"/>
+        <RadioGroup
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="男"
+                android:id="@+id/rb_male"/>
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="女"
+                android:id="@+id/rb_female"/>
+        </RadioGroup>
+
+        </LinearLayout>
+
+        <com.daizhx.msedp.view.LabelEditText
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="16dp"
+            labelText="出生日期:"
+            labelFontSize="20"
+            labelPosition="left"></com.daizhx.msedp.view.LabelEditText>
+
+    <com.daizhx.msedp.view.LabelEditText
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="16dp"
+        labelText="电话:"
+        labelFontSize="20"
+        labelPosition="left"
+        android:id="@+id/et_tel"></com.daizhx.msedp.view.LabelEditText>
+
+        <com.daizhx.msedp.view.LabelEditText
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="16dp"
+            labelText="家庭住址："
+            labelFontSize="20"
+            labelPosition="left"
+            android:id="@+id/et_addr"></com.daizhx.msedp.view.LabelEditText>
+
+        <com.daizhx.msedp.view.LabelEditText
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="16dp"
+            labelText="社保卡号："
+            labelFontSize="20"
+            labelPosition="left"
+            android:id="@+id/et_sbk"></com.daizhx.msedp.view.LabelEditText>
+
+        <com.daizhx.msedp.view.LabelEditText
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="16dp"
+            labelText="就诊医院："
+            labelFontSize="20"
+            labelPosition="left"
+            android:id="@+id/et_yy"></com.daizhx.msedp.view.LabelEditText>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="16dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="是否吸烟:"
+            android:textSize="20sp"/>
+        <View
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"/>
+
+        <Switch
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textOn="是"
+            android:textOff="否"
+            android:id="@+id/switch_smoke"/>
+
+    </LinearLayout>
+
+        <com.daizhx.msedp.view.LabelEditText
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="16dp"
+            labelText="烟龄："
+            labelFontSize="20"
+            labelPosition="left"
+            android:id="@+id/et_smoke_year"></com.daizhx.msedp.view.LabelEditText>
+
+
+        <Button
+            android:layout_marginTop="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="注册"
+            android:id="@+id/btn_sign_up"/>
+
+    </LinearLayout>
+</android.support.v4.widget.NestedScrollView>

@@ -63,8 +63,13 @@ public class MainActivity extends AppCompatActivity implements EditTimeDialog.Se
     TextView tvMc;
     TextView tvStrength;
 
+<<<<<<< HEAD
     private View timerAnim;
     private AnimationDrawable timeAnim;
+=======
+//    private View timerAnim;
+//    private AnimationDrawable timeAnim;
+>>>>>>> ''
 
     Button btnConfirm;
 
@@ -304,8 +309,9 @@ public class MainActivity extends AppCompatActivity implements EditTimeDialog.Se
                 }
             });
         }
-        timerAnim = findViewById(R.id.img_timer);
-        timeAnim = (AnimationDrawable) timerAnim.getBackground();
+
+//        timerAnim = findViewById(R.id.img_timer);
+//        timeAnim = (AnimationDrawable) timerAnim.getBackground();
 
         ToggleButton onOffBtn = (ToggleButton) findViewById(R.id.btn_on_off);
         onOffBtn.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {

@@ -3,6 +3,8 @@ package com.daizhx.msedp.login;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
 
@@ -32,6 +34,8 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+
+import com.daizhx.msedp.MainActivity;
 import com.daizhx.msedp.R;
 
 import static android.Manifest.permission.READ_CONTACTS;
@@ -46,6 +50,9 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
      */
     private static final int REQUEST_READ_CONTACTS = 0;
 
+
+    //ID to identity register activity request
+    private static final int REQUEST_REGISTER = 1;
     /**
      * A dummy authentication store containing known user names and passwords.
      * TODO: remove after connecting to a real authentication system.
@@ -94,6 +101,32 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
 
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
+
+        findViewById(R.id.tv_tryout).setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                noSignIn();
+            }
+        });
+
+        findViewById(R.id.tv_sign_up).setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goSignUp();
+            }
+        });
+    }
+
+    //游客试用，未登录进入
+    private void noSignIn(){
+        startActivity(new Intent(LoginActivity.this, MainActivity.class));
+    }
+
+    //去注册
+    public void goSignUp(){
+        //TODO
+        Intent intent = new Intent(LoginActivity.this,SignUpActivity.class);
+        startActivityForResult(intent,REQUEST_REGISTER);
     }
 
     private void populateAutoComplete() {
@@ -275,6 +308,23 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
                         android.R.layout.simple_dropdown_item_1line, emailAddressCollection);
 
         mEmailView.setAdapter(adapter);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(resultCode == RESULT_OK){
+            switch (requestCode){
+                case REQUEST_REGISTER:
+                    String tel = data.getStringExtra("tel");
+                    String account = data.getStringExtra("account");
+                    String pwd = data.getStringExtra("pwd");
+                    mEmailView.setText(account);
+                    mPasswordView.setText(pwd);
+                    break;
+                default:
+                    break;
+            }
+        }
     }
 
 

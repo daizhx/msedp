@@ -16,7 +16,8 @@ public class SlashActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                startActivity(new Intent(SlashActivity.this,LoginActivity.class));
+
+                startActivity(new Intent(SlashActivity.this,MainActivity.class));
                 finish();
             }
         },3000);
