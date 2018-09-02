@@ -63,13 +63,8 @@ public class MainActivity extends AppCompatActivity implements EditTimeDialog.Se
     TextView tvMc;
     TextView tvStrength;
 
-<<<<<<< HEAD
-    private View timerAnim;
-    private AnimationDrawable timeAnim;
-=======
 //    private View timerAnim;
-//    private AnimationDrawable timeAnim;
->>>>>>> ''
+//    private AnimationDrawable timeAnim;s
 
     Button btnConfirm;
 
