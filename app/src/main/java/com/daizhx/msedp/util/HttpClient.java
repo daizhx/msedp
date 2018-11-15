@@ -15,8 +15,8 @@ public class HttpClient {
     private static final HttpClient instance = new HttpClient();
     private OkHttpClient client;
     //local server ip
-    private String serverHost = "192.168.1.101";
-    private int serverPort = 9000;
+    private String serverHost = "192.168.1.77";
+    private int serverPort = 8099;
 
 
     public static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
@@ -50,12 +50,10 @@ public class HttpClient {
                 .build();
 
         client.newCall(request).enqueue(callback);
-//        Response response = client.newCall(request).execute();
-//        if (response.isSuccessful()) {
-//            return response.body().string();
-//        } else {
-//            throw new IOException("Unexpected code " + response);
-//        }
+    }
+
+    public void get(String api){
+        Request request = new Request.Builder().url(genUrl(api)).build();
     }
 
 }

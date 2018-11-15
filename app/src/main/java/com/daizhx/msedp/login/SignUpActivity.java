@@ -127,8 +127,8 @@ public class SignUpActivity extends AppCompatActivity {
                 public void onResponse(Call call, Response response) throws IOException {
                     Log.d("daizhx","ret-------->"+response.body().string());
                     Intent data = new Intent();
-                    data.putExtra("tel",etTel.getText().toString().trim());
-                    data.putExtra("account",etAccount.getText().toString().trim());
+//                    data.putExtra("tel",etTel.getText().toString().trim());
+                    data.putExtra("userName",etAccount.getText().toString().trim());
                     data.putExtra("pwd",etPwd.getText().toString().trim());
                     setResult(RESULT_OK,data);
                     finish();
