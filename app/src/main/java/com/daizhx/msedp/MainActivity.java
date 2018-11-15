@@ -84,6 +84,7 @@ public class MainActivity extends AppCompatActivity implements EditTimeDialog.Se
     boolean timerTriggle = false;
 
     TextView tvNumber1;
+    //倒计时数字
     TextView tvNumber2;
 //    private ArrayList<BluetoothDevice> mLeDevices;
     // Device scan callback.
