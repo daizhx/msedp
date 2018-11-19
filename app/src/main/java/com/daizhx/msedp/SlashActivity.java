@@ -9,6 +9,9 @@ import com.daizhx.msedp.login.LoginActivity;
 
 public class SlashActivity extends AppCompatActivity {
 
+    //是否已登录
+    boolean isSignIn = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -16,10 +19,15 @@ public class SlashActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-
-                startActivity(new Intent(SlashActivity.this,MainActivity.class));
+                if(isSignIn) {
+                    startActivity(new Intent(SlashActivity.this, MainActivity.class));
+                }else{
+                    startActivity(new Intent(SlashActivity.this, LoginActivity.class));
+                }
                 finish();
             }
         },3000);
+        //TODO 获取登录状态
+
     }
 }
