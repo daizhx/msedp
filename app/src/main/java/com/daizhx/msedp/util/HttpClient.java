@@ -42,6 +42,7 @@ public class HttpClient {
         return "http://" + serverHost + ":" + serverPort +"/" + api;
     }
 
+    //异步提交数据接口
     public void post(String api, String json,Callback callback){
         RequestBody body = RequestBody.create(JSON, json);
         Request request = new Request.Builder()
@@ -50,12 +51,6 @@ public class HttpClient {
                 .build();
 
         client.newCall(request).enqueue(callback);
-//        Response response = client.newCall(request).execute();
-//        if (response.isSuccessful()) {
-//            return response.body().string();
-//        } else {
-//            throw new IOException("Unexpected code " + response);
-//        }
     }
 
 }
