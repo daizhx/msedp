@@ -80,9 +80,6 @@ public class MainActivity extends AppCompatActivity implements EditTimeDialog.Se
         super.onPostCreate(savedInstanceState);
     }
 
-    //    Chronometer timer;
-    boolean timerTriggle = false;
-
     TextView tvNumber1;
     //倒计时数字
     TextView tvNumber2;
@@ -571,14 +568,11 @@ public class MainActivity extends AppCompatActivity implements EditTimeDialog.Se
         dialog.show(getFragmentManager(),"editStrength");
     }
 
-
     @Override
     public void setTime(int i) {
         command[0] = 0x03;
         command[1] = (byte) i;
         writeBytes(command);
-//        tvTime.setText(times[i-1]);
-        timerTriggle = true;
 
     }
 
@@ -587,7 +581,6 @@ public class MainActivity extends AppCompatActivity implements EditTimeDialog.Se
         command[0] = 0x03;
         command[3] = (byte) value;
         writeBytes(command);
-//        tvMc.setText(McEditDialog.ss[value - 1]);
     }
 
     @Override
@@ -595,7 +588,6 @@ public class MainActivity extends AppCompatActivity implements EditTimeDialog.Se
         command[0] = 0x03;
         command[2] = (byte) value;
         writeBytes(command);
-//        tvQibo.setText(QiboEditDialog.ss[value - 5]);
     }
 
     @Override
@@ -603,7 +595,6 @@ public class MainActivity extends AppCompatActivity implements EditTimeDialog.Se
         command[0] = 0x03;
         command[4] = (byte) value;
         writeBytes(command);
-//        tvStrength.setText(StrengthEditDialog.ss[value]);
     }
 
     @Override
@@ -625,11 +616,13 @@ public class MainActivity extends AppCompatActivity implements EditTimeDialog.Se
         DeviceListDialog deviceListDialog = DeviceListDialog.getInstance();
         deviceListDialog.dismiss();
     }
+
     private void disConnected(){
         mConnectState = STATE_DISCONNECTED;
         supportInvalidateOptionsMenu();
     }
 
+    //连接蓝牙设备，异步操作
     public boolean connect(final String addr){
         if(mBluetoothAdapter == null || addr == null){
             Log.w(TAG, "BluetoothAdapter not initialize or unspecified address");
