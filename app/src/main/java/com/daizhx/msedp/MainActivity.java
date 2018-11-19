@@ -298,7 +298,9 @@ public class MainActivity extends AppCompatActivity implements EditTimeDialog.Se
             btnConfirm.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+
                     writeBytes(command);
+                    int index = command[TIME];
                 }
             });
         }
@@ -572,7 +574,7 @@ public class MainActivity extends AppCompatActivity implements EditTimeDialog.Se
     public void setTime(int i) {
         command[0] = 0x03;
         command[1] = (byte) i;
-        writeBytes(command);
+//        writeBytes(command);
 
     }
 
@@ -580,21 +582,21 @@ public class MainActivity extends AppCompatActivity implements EditTimeDialog.Se
     public void setMcFreq(int value) {
         command[0] = 0x03;
         command[3] = (byte) value;
-        writeBytes(command);
+//        writeBytes(command);
     }
 
     @Override
     public void setQiboFreqValue(int value) {
         command[0] = 0x03;
         command[2] = (byte) value;
-        writeBytes(command);
+//        writeBytes(command);
     }
 
     @Override
     public void setStrength(int value) {
         command[0] = 0x03;
         command[4] = (byte) value;
-        writeBytes(command);
+//        writeBytes(command);
     }
 
     @Override
