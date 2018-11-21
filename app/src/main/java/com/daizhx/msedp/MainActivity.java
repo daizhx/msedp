@@ -10,16 +10,11 @@ import android.bluetooth.BluetoothGattCharacteristic;
 import android.bluetooth.BluetoothGattService;
 import android.bluetooth.BluetoothManager;
 import android.bluetooth.BluetoothProfile;
-import android.bluetooth.le.BluetoothLeScanner;
-import android.bluetooth.le.ScanCallback;
-import android.bluetooth.le.ScanResult;
-import android.bluetooth.le.ScanSettings;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.graphics.drawable.AnimationDrawable;
 import android.os.Build;
 import android.os.CountDownTimer;
 import android.os.Handler;
@@ -38,12 +33,15 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.FrameLayout;
-import android.widget.NumberPicker;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
-import java.util.ArrayList;
+import com.daizhx.msedp.util.HttpClient;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.Arrays;
 
 @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR2)
@@ -75,6 +73,8 @@ public class MainActivity extends AppCompatActivity implements EditTimeDialog.Se
     private boolean mScanning;
     private static final long SCAN_PERIOD = 10000;
 
+    private CountDownTimer timer;
+
     @Override
     protected void onPostCreate(@Nullable Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
@@ -82,7 +82,7 @@ public class MainActivity extends AppCompatActivity implements EditTimeDialog.Se
 
     TextView tvNumber1;
     //倒计时数字
-    TextView tvNumber2;
+    TextView tvRemainingMinutes;
 //    private ArrayList<BluetoothDevice> mLeDevices;
     // Device scan callback.
     private BluetoothAdapter.LeScanCallback mLeScanCallback =
@@ -90,7 +90,6 @@ public class MainActivity extends AppCompatActivity implements EditTimeDialog.Se
 
                 @Override
                 public void onLeScan(final BluetoothDevice device, int rssi, byte[] scanRecord) {
-                    Log.d("daizhx","onLeScan-------->"+rssi+",device="+device.getName());
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
@@ -270,7 +269,7 @@ public class MainActivity extends AppCompatActivity implements EditTimeDialog.Se
         tvStrength = (TextView) findViewById(R.id.tv_strength);
 
         tvNumber1 = (TextView) findViewById(R.id.number1);
-        tvNumber2 = (TextView) findViewById(R.id.number2);
+        tvRemainingMinutes = (TextView) findViewById(R.id.number2);
         // Use this check to determine whether BLE is supported on the device.  Then you can
         // selectively disable BLE-related features.
         if (!getPackageManager().hasSystemFeature(PackageManager.FEATURE_BLUETOOTH_LE)) {
@@ -301,6 +300,36 @@ public class MainActivity extends AppCompatActivity implements EditTimeDialog.Se
 
                     writeBytes(command);
                     int index = command[TIME];
+                    int minutes = index*5;
+                    timer = new CountDownTimer(minutes*60*1000,1000*60) {
+                        @Override
+                        public void onTick(long millisUntilFinished) {
+                            long rm = millisUntilFinished/(1000*60);
+                            long t = millisUntilFinished%(1000*60);
+                            if(t > 0){
+                                rm += 1;
+                            }
+                            tvRemainingMinutes.setText(rm+"");
+                        }
+
+                        @Override
+                        public void onFinish() {
+                            tvRemainingMinutes.setText(""+0);
+                        }
+                    };
+                    timer.start();
+                    //send record to server
+                    HttpClient httpClient = HttpClient.getInstance();
+                    JSONObject param = new JSONObject();
+                    try {
+                        param.put("tpm",command[QB]);
+                        param.put("frequency",command[MC]);
+                        param.put("strength",command[ST]);
+                        param.put("treatTime",minutes);
+                        //TODO
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
                 }
             });
         }
@@ -334,18 +363,6 @@ public class MainActivity extends AppCompatActivity implements EditTimeDialog.Se
     }
 
 
-    CountDownTimer timer = new CountDownTimer(30*60*1000,1000*60) {
-        @Override
-        public void onTick(long l) {
-            long r = l/(1000*60);
-            tvNumber2.setText(r+"");
-        }
-
-        @Override
-        public void onFinish() {
-            //TODO
-        }
-    };
     void initArg(){
         SharedPreferences sp = getSharedPreferences("settings",MODE_PRIVATE);
         int qibo = sp.getInt("qibo",0x09);
