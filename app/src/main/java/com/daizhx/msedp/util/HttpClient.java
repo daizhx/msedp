@@ -15,8 +15,8 @@ public class HttpClient {
     private static final HttpClient instance = new HttpClient();
     private OkHttpClient client;
     //local server ip
-    private String serverHost = "192.168.1.101";
-    private int serverPort = 9000;
+    private String serverHost = "106.12.179.56";
+    private int serverPort = 8090;
 
 
     public static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
